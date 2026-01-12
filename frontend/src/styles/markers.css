@@ -1,0 +1,190 @@
+/* Custom Marker Styles */
+
+.custom-marker-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+.marker-pin-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.2s ease;
+}
+
+.custom-marker-container:hover .marker-pin-wrapper {
+  transform: scale(1.15);
+}
+
+.marker-pin-svg {
+  width: 48px;
+  height: auto;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.25));
+  transition: filter 0.2s ease;
+}
+
+.custom-marker-container:hover .marker-pin-svg {
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4));
+}
+
+/* Tooltip on hover (desktop only) */
+.marker-pin-wrapper[title] {
+  position: relative;
+}
+
+.marker-pin-wrapper[title]:hover::after {
+  content: attr(title);
+  position: absolute;
+  bottom: -35px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.8);
+  color: #F6F8FA;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+  z-index: 1000;
+  pointer-events: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.marker-pin-wrapper[title]:hover::before {
+  content: '';
+  position: absolute;
+  bottom: -32px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid rgba(0, 0, 0, 0.8);
+  z-index: 1000;
+  pointer-events: none;
+}
+
+.marker-label {
+  display: none;
+}
+
+/* Marker popup styles */
+.marker-popup-content {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  padding: 0;
+}
+
+.marker-popup-content h3 {
+  margin: 0 0 8px 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #0B0B0D;
+}
+
+.marker-popup-content p {
+  margin: 4px 0;
+  font-size: 12px;
+  color: #484A55;
+  line-height: 1.4;
+}
+
+.marker-popup-content small {
+  font-size: 11px;
+  color: #7F8C8D;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .marker-pin-wrapper[title]:hover::after {
+    background: rgba(255, 255, 255, 0.95);
+    color: #0B0B0D;
+  }
+
+  .marker-pin-wrapper[title]:hover::before {
+    border-bottom-color: rgba(255, 255, 255, 0.95);
+  }
+
+  .marker-popup-content h3 {
+    color: #F6F8FA;
+  }
+
+  .marker-popup-content p {
+    color: #D0D0D0;
+  }
+
+  .marker-popup-content small {
+    color: #95A5A6;
+  }
+}
+
+/* Mobile/Tablet: Hide tooltips on smaller screens */
+@media (max-width: 768px) {
+  .marker-pin-wrapper[title]:hover::after,
+  .marker-pin-wrapper[title]:hover::before {
+    display: none;
+  }
+}
+
+/* ================================
+   USER LOCATION MARKER
+   ================================ */
+
+.user-location-marker {
+  position: relative;
+  width: 24px;
+  height: 24px;
+}
+
+.user-location-dot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 16px;
+  height: 16px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 50%;
+  border: 3px solid #ffffff;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.5);
+  z-index: 2;
+}
+
+.user-location-pulse {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  background: rgba(102, 126, 234, 0.3);
+  border-radius: 50%;
+  animation: userLocationPulse 2s ease-out infinite;
+  z-index: 1;
+}
+
+@keyframes userLocationPulse {
+  0% {
+    transform: translate(-50%, -50%) scale(0.5);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(2);
+    opacity: 0;
+  }
+}
+
+/* Dark mode - slightly brighter pulse */
+@media (prefers-color-scheme: dark) {
+  .user-location-pulse {
+    background: rgba(102, 126, 234, 0.4);
+  }
+  
+  .user-location-dot {
+    box-shadow: 0 2px 12px rgba(102, 126, 234, 0.6);
+  }
+}
+
