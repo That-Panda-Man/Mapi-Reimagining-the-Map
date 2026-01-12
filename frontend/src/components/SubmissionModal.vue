@@ -288,7 +288,11 @@ watch(() => props.isOpen, (isOpen) => {
         editableText.value = props.initialText
         selectedIcon.value = 'food' // Default selection
         showLocationWarning.value = false // Reset warning state
+        isLoading.value = false // Reset loading state
         initializeScrollPosition()
+    } else {
+        // Reset loading state when modal closes
+        isLoading.value = false
     }
 })
 

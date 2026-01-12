@@ -185,10 +185,6 @@ export default {
       // Validate we have coordinates
       if (!submissionData.latitude || !submissionData.longitude) {
         console.error('❌ Cannot submit: No coordinates available')
-        // Reset loading state on error
-        if (submissionModalRef.value) {
-          submissionModalRef.value.isLoading.value = false
-        }
         return
       }
 
@@ -209,11 +205,6 @@ export default {
         }
       } catch (error) {
         console.error('❌ Submission error:', error)
-      } finally {
-        // Reset loading state in modal
-        if (submissionModalRef.value) {
-          submissionModalRef.value.isLoading.value = false
-        }
       }
       
       showSubmissionModal.value = false
