@@ -353,45 +353,42 @@ export default {
 
     // ===== LIFECYCLE =====
 
+    // Update CSS vars for viewport handling on mobile (safe area and vh)
+    const updateSafeAreaBottom = () => {
+      try {
+        const windowHeight = window.innerHeight
+        const viewportHeight = window.visualViewport ? window.visualViewport.height : window.innerHeight
+
+        const safeAreaBottom = Math.max(0, windowHeight - viewportHeight)
+        document.documentElement.style.setProperty('--safe-area-bottom', `${safeAreaBottom}px`)
+
+        const vh = viewportHeight * 0.01
+        document.documentElement.style.setProperty('--vh', `${vh}px`)
+      } catch (e) {
+        // ignore in non-browser environments
+      }
+    }
+
     onMounted(async () => {
       console.log('⏳ App mounted, requesting geolocation...')
       // Request geolocation automatically - browser will show native prompt
       requestGeolocation()
       console.log('Request geolocation fired. Waiting for user response...')
-      
+
       // Fetch public points from backend
       await fetchPublicPoints()
 
-      // Setup viewport tracking for mobile safe area
-      const updateSafeAreaBottom = () => {
-        // On iOS, visualViewport gives the actual available height
-        if (window.visualViewport) {
-          const windowHeight = window.innerHeight
-          const viewportHeight = window.visualViewport.height
-          const safeAreaBottom = windowHeight - viewportHeight
-          document.documentElement.style.setProperty('--safe-area-bottom', `${safeAreaBottom}px`)
-          console.log('📐 Updated safe area bottom:', safeAreaBottom, 'px')
-        }
-      }
-
-      // Initial call
+      // Initial call and listeners for viewport changes (handles iOS show/hide UI)
       updateSafeAreaBottom()
-
-      // Listen for viewport changes (iOS shows/hides browser UI)
-      if (window.visualViewport) {
-        window.visualViewport.addEventListener('resize', updateSafeAreaBottom)
-      }
+      if (window.visualViewport) window.visualViewport.addEventListener('resize', updateSafeAreaBottom)
       window.addEventListener('resize', updateSafeAreaBottom)
       window.addEventListener('orientationchange', updateSafeAreaBottom)
+    })
 
-      // Cleanup on unmount
-      onUnmounted(() => {
-        if (window.visualViewport) {
-          window.visualViewport.removeEventListener('resize', updateSafeAreaBottom)
-        }
-        window.removeEventListener('resize', updateSafeAreaBottom)
-        window.removeEventListener('orientationchange', updateSafeAreaBottom)
-      })
+    onUnmounted(() => {
+      if (window.visualViewport) window.visualViewport.removeEventListener('resize', updateSafeAreaBottom)
+      window.removeEventListener('resize', updateSafeAreaBottom)
+      window.removeEventListener('orientationchange', updateSafeAreaBottom)
     })
 
     // ===== WATCHERS =====

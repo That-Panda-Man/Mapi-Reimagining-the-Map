@@ -364,6 +364,14 @@ const loadUserPoints = async () => {
         emit('marker-click', point)
       })
 
+      markerContainer.addEventListener('mouseenter', () => {
+        markerContainer.style.zIndex = '1000'
+      })
+
+      markerContainer.addEventListener('mouseleave', () => {
+        markerContainer.style.zIndex = '1'
+      })
+
       // Create Mapbox marker
       const marker = new mapboxgl.Marker(markerContainer, {
         anchor: 'bottom'
@@ -754,7 +762,8 @@ defineExpose({
   position: absolute;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  /* Use CSS variable --vh set from JS to avoid mobile Safari 100vh issues */
+  height: calc(var(--vh, 1vh) * 100);
 }
 </style>
