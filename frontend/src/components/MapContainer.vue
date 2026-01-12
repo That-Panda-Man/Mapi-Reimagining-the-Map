@@ -163,7 +163,7 @@ const calculateDistance = (lat1, lon1, lat2, lon2) => {
 
 // Get marker SVG by icon_name and theme
 const getMarkerSVG = (iconName, isDarkMode) => {
-  const theme = isDarkMode.value ? 'dark' : 'light'
+  const theme = isDarkMode ? 'dark' : 'light'
   
   if (markerSVGs[iconName] && markerSVGs[iconName][theme]) {
     return markerSVGs[iconName][theme]
@@ -347,7 +347,7 @@ const loadUserPoints = async () => {
       markerContainer.setAttribute('data-icon', point.icon_name || 'Architecture')
 
       // Get the appropriate SVG for this marker's icon_name
-      const markerSVGPath = getMarkerSVG(point.icon_name || 'Architecture', false)
+      const markerSVGPath = getMarkerSVG(point.icon_name || 'Architecture', props.isDarkMode)
 
       // Create the marker HTML with popup content using the imported SVG
       const markerWrapper = document.createElement('div')
