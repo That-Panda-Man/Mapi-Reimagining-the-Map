@@ -52,8 +52,14 @@
                 </p>
             </div>
 
+            <!-- Loading Spinner -->
+            <div v-if="isLoading" class="loading-container">
+                <div class="spinner"></div>
+                <p class="loading-text">Uploading to database...</p>
+            </div>
+
             <!-- Action Buttons -->
-            <div class="modal-actions">
+            <div class="modal-actions" v-if="!isLoading">
                 <button class="btn btn-cancel" @click="handleCancel">Cancel</button>
                 <button class="btn btn-submit" :class="{ 'btn-confirm': showLocationWarning }" @click="handleFinish">
                     {{ showLocationWarning ? 'Confirm & Upload to Nearest Gap' : 'Finish Upload' }}
@@ -141,6 +147,7 @@ const expiryDate = ref('')
 const scrollWheel = ref(null)
 const isScrolling = ref(false)
 const showLocationWarning = ref(false)  // Track if we're in "confirm" mode
+const isLoading = ref(false)  // Track submission loading state
 let scrollTimeout = null
 
 // Validation threshold in meters
@@ -338,6 +345,10 @@ const handleFinish = () => {
     }
 
     console.log('📤 Emitting submit data:', submitData)
+    
+    // Set loading state before emitting
+    isLoading.value = true
+    
     emit('submit', submitData)
 
     // Reset state
@@ -675,5 +686,44 @@ const handleFinish = () => {
 
 .light-mode .warning-text {
     color: #92400e;
+}
+
+/* Loading Spinner */
+.loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 40px 20px;
+}
+
+.spinner {
+    width: 48px;
+    height: 48px;
+    border: 4px solid rgba(102, 126, 234, 0.1);
+    border-top-color: #667eea;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.loading-text {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.dark-mode .loading-text {
+    color: #f6f8fa;
+}
+
+.light-mode .loading-text {
+    color: #333333;
 }
 </style>

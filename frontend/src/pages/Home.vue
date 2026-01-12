@@ -45,6 +45,7 @@
 
       <!-- Submission Modal -->
       <SubmissionModal
+        ref="submissionModalRef"
         :isOpen="showSubmissionModal"
         :initialText="submissionText"
         :isDarkMode="isDarkMode"
@@ -67,7 +68,7 @@
 </template>
 
 <script>
-import { ref, onMounted, watch, nextTick } from 'vue'
+import { ref, onMounted, onUnmounted, watch, nextTick } from 'vue'
 import axios from 'axios'
 import MapContainer from '../components/MapContainer.vue'
 import ControlBar from '../components/ControlBar.vue'
@@ -117,6 +118,7 @@ export default {
 
     // Component refs
     const mapContainerRef = ref(null)
+    const submissionModalRef = ref(null)
 
     // ===== MAP CALLBACKS =====
 
@@ -183,6 +185,10 @@ export default {
       // Validate we have coordinates
       if (!submissionData.latitude || !submissionData.longitude) {
         console.error('❌ Cannot submit: No coordinates available')
+        // Reset loading state on error
+        if (submissionModalRef.value) {
+          submissionModalRef.value.isLoading.value = false
+        }
         return
       }
 
@@ -203,6 +209,11 @@ export default {
         }
       } catch (error) {
         console.error('❌ Submission error:', error)
+      } finally {
+        // Reset loading state in modal
+        if (submissionModalRef.value) {
+          submissionModalRef.value.isLoading.value = false
+        }
       }
       
       showSubmissionModal.value = false
@@ -350,6 +361,37 @@ export default {
       
       // Fetch public points from backend
       await fetchPublicPoints()
+
+      // Setup viewport tracking for mobile safe area
+      const updateSafeAreaBottom = () => {
+        // On iOS, visualViewport gives the actual available height
+        if (window.visualViewport) {
+          const windowHeight = window.innerHeight
+          const viewportHeight = window.visualViewport.height
+          const safeAreaBottom = windowHeight - viewportHeight
+          document.documentElement.style.setProperty('--safe-area-bottom', `${safeAreaBottom}px`)
+          console.log('📐 Updated safe area bottom:', safeAreaBottom, 'px')
+        }
+      }
+
+      // Initial call
+      updateSafeAreaBottom()
+
+      // Listen for viewport changes (iOS shows/hides browser UI)
+      if (window.visualViewport) {
+        window.visualViewport.addEventListener('resize', updateSafeAreaBottom)
+      }
+      window.addEventListener('resize', updateSafeAreaBottom)
+      window.addEventListener('orientationchange', updateSafeAreaBottom)
+
+      // Cleanup on unmount
+      onUnmounted(() => {
+        if (window.visualViewport) {
+          window.visualViewport.removeEventListener('resize', updateSafeAreaBottom)
+        }
+        window.removeEventListener('resize', updateSafeAreaBottom)
+        window.removeEventListener('orientationchange', updateSafeAreaBottom)
+      })
     })
 
     // ===== WATCHERS =====
@@ -426,7 +468,8 @@ export default {
       toggleTheme,
 
       // Refs
-      mapContainerRef
+      mapContainerRef,
+      submissionModalRef
     }
   }
 }
