@@ -773,17 +773,25 @@
     inset 0.5px 1px 2.25px 0px rgba(0, 0, 0, 0.15);
 }
 
+.no-geo-info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
 .app-name {
   font-weight: 700;
 }
 
 .gap-content {
   display: flex;
-  /* flex-direction: row; */
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  width: 100%;
+  /* width: 100%; */
 }
 
 .gap-info {
@@ -854,7 +862,7 @@
   background: none;
   border: none;
   cursor: pointer;
-  /* padding: 8px; */
+  padding: 8px;
   border-radius: 8px;
   display: flex;
   align-items: center;
@@ -870,7 +878,7 @@
   transform: scale(0.95);
 }
 
-.btn-retry-geo svg {
+.btn-retry-geo .icon {
   width: 48px;
   height: 48px;
 }
@@ -1408,5 +1416,10 @@
   .nearest-gap-container {
     top: 110px;
     left: 12px;
+  }
+
+  .btn-retry-geo .icon {
+    width: 36px;
+    height: 36px;
   }
 }
