@@ -59,6 +59,9 @@
             <button class="upload-btn" @click="handleSubmit" :title="'Submit'">
               <img :src="uploadIconExpanded" alt="Upload" class="icon" />
             </button>
+            <button class="close-btn" @click="handleClose" :title="'Close'" @keydown.esc="handleClose">
+              <img :src="closeIcon" alt="Close" class="icon" />
+            </button>
           </div>
 
           <!-- Settings Buttons Section -->
@@ -167,6 +170,11 @@ import settingsLightRound from '../assets/utility_icons/settings/light_round_reg
 // Color Mode
 import colorModeDarkRound from '../assets/utility_icons/colourMode/dark_round_regular.svg'
 import colorModeLightRound from '../assets/utility_icons/colourMode/light_round_regular.svg'
+
+// Close Icon
+import closeDarkRound from '../assets/utility_icons/close/dark_round_large.svg'
+import closeLightRound from '../assets/utility_icons/close/light_round_large.svg'
+
 // Props
 const props = defineProps({
   variant: {
@@ -186,7 +194,8 @@ const emit = defineEmits([
   'map-toggle',
   'info-click',
   'settings-click',
-  'theme-toggle'
+  'theme-toggle',
+  'close-click'
 ])
 
 // Refs
@@ -235,6 +244,7 @@ const mapIcon = computed(() => props.isDarkMode ? mapDarkRound : mapLightRound)
 const infoIcon = computed(() => props.isDarkMode ? infoDarkRound : infoLightRound)
 const settingsIcon = computed(() => props.isDarkMode ? settingsDarkRound : settingsLightRound)
 const colorModeIcon = computed(() => props.isDarkMode ? colorModeDarkRound : colorModeLightRound)
+const closeIcon = computed(() => props.isDarkMode ? closeDarkRound : closeLightRound)
 
 // Methods
 const handleSubmit = () => {
@@ -243,6 +253,10 @@ const handleSubmit = () => {
     inputText.value = ''
     isExpanded.value = false
   }
+}
+
+const handleClose = () => {
+  isExpanded.value = false
 }
 
 const handleUploadClick = () => {
