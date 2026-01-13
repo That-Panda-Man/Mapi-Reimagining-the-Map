@@ -1,8 +1,11 @@
 <template>
     <div :class="['nearest-gap', isDarkMode ? 'dark' : 'light']">
+        <div class="logo-container">
+            <img :src="Logo" alt="Mapi" class="icon" />
+        </div>
         <div v-if="nearestGap" class="gap-info">
             <span v-if="canUploadHere" class="count can-upload">You can upload here!</span>
-            <span v-else class="count move-to-gap">Move {{ formattedDistance }} to the circle to upload!</span>
+            <span v-else class="count move-to-gap"><p class="distance">{{ formattedDistance }}</p> Move into the circle to upload!</span>
         </div>
         <div v-else class="no-gap">
             <span>No nearby gaps found</span>
@@ -12,6 +15,9 @@
 
 <script>
 import { computed } from 'vue'
+
+import LogoDark from '../assets/logos/logo_dark.svg'
+import LogoLight from '../assets/logos/logo_light.svg'
 
 export default {
     name: 'NearestGap',
@@ -49,13 +55,18 @@ export default {
                 return `${(distance / 1000).toFixed(1)}km`
             }
         })
+        
+        const Logo = computed(() => props.isDarkMode ? LogoDark : LogoLight)
 
         return {
             formattedDistance,
-            canUploadHere
+            canUploadHere,
+            Logo
         }
     }
 }
+
+
 </script>
 
 <style scoped>
@@ -66,7 +77,7 @@ export default {
     width: fit-content;
     min-width: 200px;
     padding: 12px 20px;
-    margin-left: 12px;
+    margin: 12px;
     border-radius: 12px;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     backdrop-filter: blur(10px);
@@ -75,15 +86,21 @@ export default {
 }
 
 .nearest-gap.dark {
-    background: rgba(11, 11, 13, 0.85);
     color: #e7e7e7;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: #484a55;
+    box-shadow:
+        -1px -0.5px 3.5px 0px rgba(0, 0, 0, 0.25),
+        0.5px 1px 2px 0px rgba(0, 0, 0, 0.38),
+        inset 0.5px 1px 2.25px 0px rgba(255, 255, 255, 0.61);
 }
 
 .nearest-gap.light {
-    background: rgba(239, 242, 245, 0.9);
     color: #0b0b0d;
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    background-color: #e7e7e7;
+    box-shadow:
+        -1px -0.5px 3.5px 0px rgba(0, 0, 0, 0.25),
+        0.5px 1px 2px 0px rgba(0, 0, 0, 0.38),
+        inset 0.5px 1px 2.25px 0px rgba(0, 0, 0, 0.15);
 }
 
 .gap-info {
@@ -92,9 +109,25 @@ export default {
     gap: 8px;
 }
 
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-right: 12px;
+    margin-left: -8px;
+    width: 64px;
+    height: auto;
+}
+
+.logo-container .icon {
+    width: 100%;
+    height: auto;
+}
+
 .distance {
     font-size: 1rem;
     font-weight: 700;
+    line-height: 2rem;
     background: #f8f8f8;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;

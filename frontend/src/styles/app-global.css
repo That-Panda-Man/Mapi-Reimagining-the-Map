@@ -960,46 +960,6 @@
   color: #555;
 }
 
-.nearest-gap {
-  background: white;
-  padding: 8px;
-  border-radius: 3px;
-  margin: 8px 0;
-  border-left: 3px solid #ff6600;
-}
-
-.nearest-label {
-  margin: 0 0 4px 0;
-  font-weight: 600;
-  color: #666;
-}
-
-.nearest-distance {
-  margin: 0 0 4px 0;
-  font-weight: 600;
-  color: #ff6600;
-  font-size: 14px;
-}
-
-.nearest-coords {
-  margin: 0;
-  font-family: monospace;
-  font-size: 10px;
-  color: #888;
-}
-
-.nearby-count {
-  margin: 8px 0 0 0;
-  color: #00aa00;
-  font-weight: 600;
-}
-
-.no-gaps {
-  margin: 8px 0 0 0;
-  color: #cc0000;
-  font-weight: 600;
-}
-
 .check-result {
   padding: 12px;
   border-radius: 4px;
@@ -1179,7 +1139,7 @@
 
 .mapboxgl-marker.user-location-marker,
 .mapboxgl-marker.manual-location-marker {
-  z-index: 1000;
+  z-index: 999;
 }
 
 /* Scrollbar styling */
