@@ -32,12 +32,17 @@
         />
       </div>
 
+      <div class="branding-container">
+        <Branding :isDarkMode="isDarkMode" :userLocation="userLocation" @retry-geolocation="requestGeolocation" />
+      </div>
+
       <div class="nearest-gap-container">
         <NearestGap
           :nearestGap="nearestGap"
           :nearbyGapsCount="nearbyGapsCount"
           :isDarkMode="isDarkMode"
-          @retry-geolocation="retryGeolocation"
+          @retry-geolocation="requestGeolocation"
+          :userLocation="userLocation"
         />
       </div>
 
@@ -73,6 +78,7 @@ import ControlBar from '../components/ControlBar.vue'
 import SubmissionModal from '../components/SubmissionModal.vue'
 import MarkerPopup from '../components/MarkerPopup.vue'
 import NearestGap from '../components/NearestGap.vue'
+import Branding from '../components/Branding.vue'
 import '../styles/app-global.css'
 import '../styles/markers.css'
 
@@ -83,7 +89,8 @@ export default {
     ControlBar,
     SubmissionModal,
     MarkerPopup,
-    NearestGap
+    NearestGap,
+    Branding
   },
   setup() {
     // ===== STATE =====
@@ -287,18 +294,14 @@ export default {
         },
         (error) => {
           console.warn('⚠️ Geolocation error:', error.message)
+
         },
         {
           enableHighAccuracy: false,
-          timeout: 10000,
-          maximumAge: 5000
+          timeout: 5000,
+          maximumAge: 0
         }
       )
-    }
-
-    const retryGeolocation = () => {
-      console.log('🔄 Retrying geolocation request...')
-      requestGeolocation()
     }
 
     // ===== DATA FETCHING =====
@@ -390,7 +393,6 @@ export default {
 
       // Methods
       requestGeolocation,
-      retryGeolocation,
       onMapReady,
       onMapInitialized,
       onNearbyGapsUpdated,
