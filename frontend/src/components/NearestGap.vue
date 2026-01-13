@@ -8,7 +8,8 @@
             <span v-else class="count move-to-gap"><p class="distance">{{ formattedDistance }}</p> Move into the circle to upload!</span>
         </div>
         <div v-else class="no-gap">
-            <span>No nearby gaps found</span>
+            <span>No nearby gaps found!</span>
+            <button class="enable-geo" @click="retryGeolocation">Enable Geolocation</button>
         </div>
     </div>
 </template>
@@ -35,7 +36,7 @@ export default {
             default: true
         }
     },
-    setup(props) {
+    setup(props, { emit }) {
         // User can upload here if the nearest gap is very close (within ~1m means they're at a gap)
         // If distance > 0 but small, they're at a valid gap location
         // If distance is larger, they need to move to the gap
@@ -55,12 +56,17 @@ export default {
                 return `${(distance / 1000).toFixed(1)}km`
             }
         })
+
+        const retryGeolocation = () => {
+            emit('retry-geolocation')
+        }
         
         const Logo = computed(() => props.isDarkMode ? LogoDark : LogoLight)
 
         return {
             formattedDistance,
             canUploadHere,
+            retryGeolocation,
             Logo
         }
     }
@@ -154,6 +160,7 @@ export default {
 
 .no-gap {
     font-size: 0.9rem;
+    line-height: 1.4rem;
     opacity: 0.6;
 }
 </style>

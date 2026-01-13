@@ -8,9 +8,6 @@
         :userLocation="userLocation"
         :initialCenter="userLocation"
         :publicPoints="publicPoints"
-        :threshold="threshold"
-        :showBuffers="showBuffers"
-        :showGaps="showGaps"
         :manualLocationActive="manualLocationActive"
         :mapInitialized="mapInitialized"
         :isDarkMode="isDarkMode"
@@ -40,6 +37,7 @@
           :nearestGap="nearestGap"
           :nearbyGapsCount="nearbyGapsCount"
           :isDarkMode="isDarkMode"
+          @retry-geolocation="retryGeolocation"
         />
       </div>
 
@@ -98,9 +96,6 @@ export default {
     const manualLocationActive = ref(false)
 
     // Map display options
-    const threshold = ref(10)
-    const showBuffers = ref(true)
-    const showGaps = ref(true)
     const isDarkMode = ref(true)
 
     // Data state
@@ -292,11 +287,6 @@ export default {
         },
         (error) => {
           console.warn('⚠️ Geolocation error:', error.message)
-          // Retry geolocatiuon after delay
-          setTimeout(() => {
-            console.log('🔄 Retrying geolocation request...')
-            requestGeolocation()
-          }, 5000)
         },
         {
           enableHighAccuracy: false,
@@ -304,20 +294,6 @@ export default {
           maximumAge: 5000
         }
       )
-    }
-
-    /**
-     * Toggle geolocation on/off
-     */
-    const toggleGeolocation = () => {
-      if (userLocation.value) {
-        // Disable location
-        userLocation.value = null
-        console.log('📍 Location disabled')
-      } else {
-        // Re-request location
-        requestGeolocation()
-      }
     }
 
     const retryGeolocation = () => {
@@ -384,30 +360,6 @@ export default {
 
     // ===== WATCHERS =====
 
-    /**
-     * Watch for threshold changes
-     */
-    watch(threshold, (newValue) => {
-      console.log('📊 Threshold changed to:', newValue)
-      // MapContainer watches this prop and updates gaps accordingly
-    })
-
-    /**
-     * Watch for buffer display toggle
-     */
-    watch(showBuffers, (newValue) => {
-      console.log('👁️ Show buffers:', newValue)
-      // MapContainer watches this prop
-    })
-
-    /**
-     * Watch for gaps display toggle
-     */
-    watch(showGaps, (newValue) => {
-      console.log('👁️ Show gaps:', newValue)
-      // MapContainer watches this prop
-    })
-
     // watch for update from navigator and retry after delay
     watch(userLocation, async (newLocation) => {
       if (newLocation) {
@@ -427,9 +379,6 @@ export default {
       mapInitialized,
       userLocation,
       manualLocationActive,
-      threshold,
-      showBuffers,
-      showGaps,
       publicPoints,
       nearestGap,
       nearbyGapsCount,
@@ -440,8 +389,8 @@ export default {
       selectedMarker,
 
       // Methods
-      toggleGeolocation,
       requestGeolocation,
+      retryGeolocation,
       onMapReady,
       onMapInitialized,
       onNearbyGapsUpdated,

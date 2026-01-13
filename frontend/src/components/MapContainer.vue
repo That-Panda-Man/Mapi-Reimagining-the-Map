@@ -49,18 +49,6 @@ const props = defineProps({
     type: Array,
     default: () => []
   },
-  threshold: {
-    type: Number,
-    default: 10
-  },
-  showBuffers: {
-    type: Boolean,
-    default: true
-  },
-  showGaps: {
-    type: Boolean,
-    default: true
-  },
   manualLocationActive: {
     type: Boolean,
     default: false
