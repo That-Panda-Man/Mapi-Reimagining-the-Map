@@ -16,11 +16,14 @@
             
             <div class="about-page" :class="{ 'dark-mode': isDarkMode, 'light-mode': !isDarkMode }">
                 <div class="about-content">
-                    <h1>About This Application</h1>
+                    <h1>Welcome to Mapi!</h1>
                     <p>
-                        This application is built using Vue.js for the frontend and leverages various modern web technologies to provide an interactive mapping experience.
+                        Following research into informational governance in digital mapping technologes, Mapi provides a platform for exploring the world through natural language descriptions. We're redesigning how we engage with maps, avoiding advertisement-driven and algorithmically curated content.
                     </p>
-                    <h2>Technologies Used</h2>
+                    <p>
+                        Mapi is an open-source project developed by a dedicated team developer and designer. Our mission is to create a user-friendly mapping application that prioritizes user contributions and community engagement.
+                    </p>
+                    <h2>Tech Stack</h2>
                     <ul>
                         <li><strong>Vue.js:</strong> A progressive JavaScript framework for building user interfaces.</li>
                         <li><strong>Vue Router:</strong> The official router for Vue.js, enabling navigation between different pages.</li>
@@ -38,9 +41,9 @@
                     <p>
                         The application is developed following best practices in web development, including component-based architecture, state management, and responsive design principles.
                     </p>
-                    <h2>Contact</h2>
+                    <h2>Code</h2>
                     <p>
-                        For more information or inquiries, please contact the development team at <a href="mailto:info@example.com">info@example.com</a>.
+                        To view the code for this website, please head to <a href="https://github.com/your-repo-link">Github</a>.
                     </p>
                     
                     <button class="back-btn" @click="handleMapToggle">← Back to Map</button>

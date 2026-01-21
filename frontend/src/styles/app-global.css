@@ -273,18 +273,18 @@
 .about-page {
   flex: 1;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: flex-start;
-  padding: 100px 20px 40px 20px;
+  padding: 16px;
   overflow-y: auto;
   min-height: 100vh;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .about-page .about-content {
-  max-width: 700px;
+  max-width: 1000px;
   width: 100%;
-  padding: 40px;
+  padding: 48px;
   border-radius: 16px;
   transition: all 0.3s ease;
 }
@@ -293,7 +293,7 @@
   font-size: 2.5rem;
   font-weight: 700;
   margin-bottom: 24px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #E7E7E7 0%, #F6F8FA 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -329,12 +329,12 @@
   content: "→";
   position: absolute;
   left: 0;
-  color: #667eea;
+  color: #F6F8FA;
   font-weight: bold;
 }
 
 .about-page a {
-  color: #667eea;
+  color: #6F8FAF;
   text-decoration: none;
   font-weight: 500;
   transition: color 0.2s ease;
@@ -354,8 +354,8 @@
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s ease;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  background: linear-gradient(135deg, #8C94A6 0%, #E7E7E7 100%);
+  color: #0b0b0b;
 }
 
 .about-page .back-btn:hover {
