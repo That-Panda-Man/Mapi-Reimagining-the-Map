@@ -27,7 +27,7 @@
           @submit="handleControlBarSubmit"
           @map-toggle="handleMapToggle"
           @info-click="handleInfoClick"
-          @settings-click="handleSettingsClick"
+          @locate-me-click="handleLocateMeClick"
           @theme-toggle="toggleTheme"
         />
       </div>
@@ -255,9 +255,17 @@ export default {
     /**
      * Handle settings button click from ControlBar
      */
-    const handleSettingsClick = () => {
-      console.log('⚙️ Settings clicked')
-      // Could open settings panel/modal
+    const handleLocateMeClick = () => {
+      console.log('📍 Locate me clicked')
+      if (!userLocation.value) {
+        console.log('📍 No user location, requesting geolocation...')
+        requestGeolocation()
+      } else {
+        console.log('📍 Recentering map to user location')
+        if (mapContainerRef.value && mapInitialized.value) {
+          mapContainerRef.value.centerMapOnLocation(userLocation.value)
+        }
+      }
     }
 
     /**
@@ -408,7 +416,7 @@ export default {
       handleMarkerPopupClose,
       handleMapToggle,
       handleInfoClick,
-      handleSettingsClick,
+      handleLocateMeClick,
       toggleTheme,
 
       // Refs

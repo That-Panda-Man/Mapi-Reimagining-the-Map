@@ -617,6 +617,17 @@ const clearUserLocationMarker = () => {
   }
 }
 
+// Center map on a given location with smooth animation
+const centerMapOnLocation = (location) => {
+  if (!map || !location) return
+  
+  map.flyTo({
+    center: [location.longitude, location.latitude],
+    zoom: 17,
+    duration: 1000
+  })
+}
+
 // Watch threshold changes
 watch(() => props.threshold, () => {
   if (props.userLocation) {
@@ -727,7 +738,8 @@ defineExpose({
   loadNearbyGaps,
   clearUserLocationMarker,
   updateUserLocationMarker,
-  updateManualLocationMarker
+  updateManualLocationMarker,
+  centerMapOnLocation
 })
 </script>
 
