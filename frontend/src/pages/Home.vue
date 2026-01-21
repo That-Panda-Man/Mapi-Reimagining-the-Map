@@ -32,18 +32,21 @@
         />
       </div>
 
-      <div class="branding-container">
-        <Branding :isDarkMode="isDarkMode" :userLocation="userLocation" @retry-geolocation="requestGeolocation" />
-      </div>
-
-      <div class="nearest-gap-container">
-        <NearestGap
-          :nearestGap="nearestGap"
-          :nearbyGapsCount="nearbyGapsCount"
-          :isDarkMode="isDarkMode"
-          @retry-geolocation="requestGeolocation"
-          :userLocation="userLocation"
-        />
+      <div class="left-container">
+        <!-- Branding Component -->
+        <div class="branding-container">
+          <Branding :isDarkMode="isDarkMode" :userLocation="userLocation" @retry-geolocation="requestGeolocation" />
+        </div>
+        <!-- Nearest Gap Component -->
+        <div class="nearest-gap-container">
+          <NearestGap
+            :nearestGap="nearestGap"
+            :nearbyGapsCount="nearbyGapsCount"
+            :isDarkMode="isDarkMode"
+            @retry-geolocation="requestGeolocation"
+            :userLocation="userLocation"
+          />
+        </div>
       </div>
 
       <!-- Submission Modal -->
@@ -273,35 +276,37 @@ export default {
      */
     const requestGeolocation = () => {
       if (!navigator.geolocation) {
-        console.warn('⚠️ Geolocation not supported by this browser')
+        console.warn('Geolocation not supported by this browser')
         return
       }
 
       console.log('📍 Requesting geolocation...')
-      
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          console.log('✅ Geolocation received:', position.coords)
-          userLocation.value = {
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude
+      try {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            console.log('✅ Geolocation received:', position.coords)
+            userLocation.value = {
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude
+            }
+            
+            // Update map marker if map is ready
+            if (mapContainerRef.value && mapInitialized.value) {
+              mapContainerRef.value.updateUserLocationMarker()
+            }
+          },
+          (error) => {
+            console.warn('Geolocation error:', error.message, 'Code:', error.code)
+          },
+          {
+            enableHighAccuracy: false,
+            timeout: 5000,
+            maximumAge: 0
           }
-          
-          // Update map marker if map is ready
-          if (mapContainerRef.value && mapInitialized.value) {
-            mapContainerRef.value.updateUserLocationMarker()
-          }
-        },
-        (error) => {
-          console.warn('⚠️ Geolocation error:', error.message)
-
-        },
-        {
-          enableHighAccuracy: false,
-          timeout: 5000,
-          maximumAge: 0
-        }
-      )
+        )
+      } catch (error) {
+        console.error('❌ Geolocation request failed:', error)
+      }
     }
 
     // ===== DATA FETCHING =====

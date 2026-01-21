@@ -3,16 +3,24 @@
     <div :class="['nearest-gap', isDarkMode ? 'dark' : 'light']">
         <div class="gap-content">
             <div v-if="!isLocationAvailable" class="no-geo-info">
-                <span class="label">Enable geolocation to find the nearest gap.</span>
+                <!-- <span class="label">Location</span> -->
                 <button class="btn-retry-geo" @click="retryGeolocation">
-                    <img :src="Geolocation" alt="Enable Geolocation" class="icon" />
+                    <div class="icon tooltip">
+                        <img :src="Geolocation" alt="Enable Geolocation" class="icon" />
+                        <span class="tooltip-text">Retry Geolocation</span>    
+                    </div>                
                 </button>
             </div>
-            <div v-else-if="nearestGap && nearestGap.distance <= 1" class="no-gap">
-                You can upload here!
+            <div v-else-if="nearestGap && nearestGap.distance <= 1" class="upload-possible">
+                <span class="label">You can upload here!</span>
             </div>
             <div v-else-if="nearestGap && nearestGap.distance > 1" class="gap-info">
-                <span class="label">Move {{ formattedDistance }} to upload!</span>
+                <span class="label">
+                    <!-- <h2>Nearly there!</h2> -->
+                    Move {{ formattedDistance }} into the circle!</span>
+            </div>
+            <div v-else class="gap-info">
+                <span class="label">Explore the map, we're having trouble locating you.</span>
             </div>
         </div>
     </div>

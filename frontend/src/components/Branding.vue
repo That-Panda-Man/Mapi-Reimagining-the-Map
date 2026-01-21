@@ -7,7 +7,7 @@
                 class="logo-icon" 
             />
             <div class="logo-text">
-                <h1 class="app-name">MAPI</h1>
+                <h2 class="app-name">MAPI</h2>
                 <p class="app-tagline">Reimagining the map</p>
             </div>
         </div>
@@ -20,9 +20,6 @@ import { computed } from 'vue'
 import LogoDark from '../assets/logos/logo_dark.svg'
 import LogoLight from '../assets/logos/logo_light.svg'
 
-import GeoLight from '../assets/utility_icons/geolocation/geo_light.svg'
-import GeoDark from '../assets/utility_icons/geolocation/geo_dark.svg'
-
 export default {
     name: 'Branding',
     props: {
@@ -31,16 +28,11 @@ export default {
             default: false
         }
     },
-    setup(props, { emit }) {
-        const retryGeolocation = () => {
-            emit('retry-geolocation')
-        }
-        
+    setup(props, { emit }) {        
         const Logo = computed(() => props.isDarkMode ? LogoDark : LogoLight)
 
         return {
-            Logo,
-            Geolocation
+            Logo
         }
     }
 }

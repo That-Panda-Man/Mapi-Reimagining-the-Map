@@ -14,27 +14,30 @@ import axios from 'axios'
 import * as turf from '@turf/turf'
 
 // Import marker SVGs (light and dark themes)
-import Architecture_light from '../assets/markers/light/Architecture_Light.svg'
-import ArtsDesign_light from '../assets/markers/light/ArtsDesign_Light.svg'
-import Drink_light from '../assets/markers/light/Drink_Light.svg'
-import Food_light from '../assets/markers/light/Food_Light.svg'
-import GreenSpace_light from '../assets/markers/light/GreenSpace_Light.svg'
-import MuseumGallery_light from '../assets/markers/light/MuseumGallery_Light.svg'
-import People_light from '../assets/markers/light/People_Light.svg'
-import Play_light from '../assets/markers/light/Play_Light.svg'
-import Shopping_light from '../assets/markers/light/Shopping_Light.svg'
-import Transport_light from '../assets/markers/light/Transport_Light.svg'
+import Architecture_light from '../assets/new_markers/architecture_light.svg'
+import ArtsDesign_light from '../assets/new_markers/arts-design_light.svg'
+import Drink_light from '../assets/new_markers/drink_light.svg'
+import Food_light from '../assets/new_markers/food_light.svg'
+import GreenSpace_light from '../assets/new_markers/green-space_light.svg'
+import MuseumGallery_light from '../assets/new_markers/gallery_light.svg'
+import People_light from '../assets/new_markers/people_light.svg'
+import Play_light from '../assets/new_markers/play_light.svg'
+import Shopping_light from '../assets/new_markers/shop_light.svg'
+import Transport_light from '../assets/new_markers/transport_light.svg'
+import Architecture_dark from '../assets/new_markers/architecture_dark.svg'
+import ArtsDesign_dark from '../assets/new_markers/arts-design_dark.svg'
+import Drink_dark from '../assets/new_markers/drink_dark.svg'
+import Food_dark from '../assets/new_markers/food_dark.svg'
+import GreenSpace_dark from '../assets/new_markers/green-space_dark.svg'
+import MuseumGallery_dark from '../assets/new_markers/gallery_dark.svg'
+import People_dark from '../assets/new_markers/people_dark.svg'
+import Play_dark from '../assets/new_markers/play_dark.svg'
+import Shopping_dark from '../assets/new_markers/shop_dark.svg'
+import Transport_dark from '../assets/new_markers/transport_dark.svg'
 
-import Architecture_dark from '../assets/markers/dark/Architecture_Dark.svg'
-import ArtsDesign_dark from '../assets/markers/dark/ArtsDesign_Dark.svg'
-import Drink_dark from '../assets/markers/dark/Drink_Dark.svg'
-import Food_dark from '../assets/markers/dark/Food_Dark.svg'
-import GreenSpace_dark from '../assets/markers/dark/GreenSpace_Dark.svg'
-import MuseumGallery_dark from '../assets/markers/dark/MuseumGallery_Dark.svg'
-import People_dark from '../assets/markers/dark/People_Dark.svg'
-import Play_dark from '../assets/markers/dark/Play_Dark.svg'
-import Shopping_dark from '../assets/markers/dark/Shopping_Dark.svg'
-import Transport_dark from '../assets/markers/dark/Transport_Dark.svg'
+// Import new marker SVG's
+
+
 // Props
 const props = defineProps({
   userLocation: {
@@ -85,6 +88,7 @@ let markers = {
   userPoints: [],
   buffers: []
 }
+
 let geolocationWatchId = null
 
 // Marker SVG mapping by icon_name and theme
@@ -158,7 +162,7 @@ const getMarkerSVG = (iconName, isDarkMode) => {
   }
   
   // Return Architecture (default) if icon_name not found
-//   console.warn(`⚠️ Icon "${iconName}" not found, using default marker`)
+  // console.warn(`⚠️ Icon "${iconName}" not found, using default marker`)
   return markerSVGs['Architecture'][theme]
 }
 

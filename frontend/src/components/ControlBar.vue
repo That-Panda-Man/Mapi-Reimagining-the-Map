@@ -46,11 +46,11 @@
       <!-- Expanded state: Icon buttons + Search input -->
       <template v-else>
         <div class="control-bar-desktop">
-          <!-- Search Input Section -->
-          <div class="search-input-container">
+          <!-- upload Input Section -->
+          <div class="upload-input-container">
             <input
               type="text"
-              class="search-input"
+              class="upload-input"
               placeholder="Start typing..."
               v-model="inputText"
               @keydown.enter="handleSubmit"
@@ -59,8 +59,8 @@
             <button class="upload-btn" @click="handleSubmit" :title="'Submit'">
               <img :src="uploadIconExpanded" alt="Upload" class="icon" />
             </button>
-            <button class="close-btn" @click="handleClose" :title="'Close'" @keydown.esc="handleClose">
-              <img :src="closeIcon" alt="Close" class="icon" />
+            <button class="upload-btn" @click="handleClose" :title="'Close'" @keydown.esc="handleClose">
+              <img :src="closeIconExpanded" alt="Close" class="icon" />
             </button>
           </div>
 
@@ -153,9 +153,6 @@ import uploadLightRoundLarge from '../assets/utility_icons/upload/light_round_la
 import uploadDarkRoundRegular from '../assets/utility_icons/upload/dark_round_regular.svg'
 import uploadLightRoundRegular from '../assets/utility_icons/upload/light_round_regular.svg'
 
-// Search
-import searchDarkRound from '../assets/utility_icons/search/dark_round_large.svg'
-import searchLightRound from '../assets/utility_icons/search/light_round_large.svg'
 // Map
 import mapDarkRound from '../assets/utility_icons/map/dark_round_regular.svg'
 import mapLightRound from '../assets/utility_icons/map/light_round_regular.svg'
@@ -163,6 +160,7 @@ import mapLightRound from '../assets/utility_icons/map/light_round_regular.svg'
 // Info
 import infoDarkRound from '../assets/utility_icons/info/dark_round_regular.svg'
 import infoLightRound from '../assets/utility_icons/info/light_round_regular.svg'
+
 // Settings
 import settingsDarkRound from '../assets/utility_icons/settings/dark_round_regular.svg'
 import settingsLightRound from '../assets/utility_icons/settings/light_round_regular.svg'
@@ -172,8 +170,10 @@ import colorModeDarkRound from '../assets/utility_icons/colourMode/dark_round_re
 import colorModeLightRound from '../assets/utility_icons/colourMode/light_round_regular.svg'
 
 // Close Icon
-import closeDarkRound from '../assets/utility_icons/close/dark_round_large.svg'
-import closeLightRound from '../assets/utility_icons/close/light_round_large.svg'
+import closeDarkRoundLarge from '../assets/utility_icons/close/dark_round_large.svg'
+import closeLightRoundLarge from '../assets/utility_icons/close/light_round_large.svg'
+import closeDarkRoundRegular from '../assets/utility_icons/close/dark_round_regular.svg'
+import closeLightRoundRegular from '../assets/utility_icons/close/light_round_regular.svg'
 
 // Props
 const props = defineProps({
@@ -244,7 +244,9 @@ const mapIcon = computed(() => props.isDarkMode ? mapDarkRound : mapLightRound)
 const infoIcon = computed(() => props.isDarkMode ? infoDarkRound : infoLightRound)
 const settingsIcon = computed(() => props.isDarkMode ? settingsDarkRound : settingsLightRound)
 const colorModeIcon = computed(() => props.isDarkMode ? colorModeDarkRound : colorModeLightRound)
-const closeIcon = computed(() => props.isDarkMode ? closeDarkRound : closeLightRound)
+const closeIconRegular = computed(() => props.isDarkMode ? closeDarkRoundRegular : closeLightRoundRegular)
+const closeIconLarge = computed(() => props.isDarkMode ? closeDarkRoundLarge : closeLightRoundLarge)
+const closeIconExpanded = computed(() => isMobile.value ? closeIconRegular.value : closeIconLarge.value)
 
 // Methods
 const handleSubmit = () => {
