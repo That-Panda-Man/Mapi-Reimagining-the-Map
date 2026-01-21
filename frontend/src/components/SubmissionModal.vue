@@ -72,29 +72,51 @@
 <script setup>
 import { ref, watch, computed, defineProps, defineEmits, onMounted, nextTick } from 'vue'
 
-// Import dark icons
-import ArchitectureDark from '../assets/icons/dark/Architecture_Dark.svg'
-import ArtsDesignDark from '../assets/icons/dark/ArtsDesign_Dark.svg'
-import DrinkDark from '../assets/icons/dark/Drink_Dark.svg'
-import FoodDark from '../assets/icons/dark/Food_Dark.svg'
-import GreenSpaceDark from '../assets/icons/dark/GreenSpace_Dark.svg'
-import MuseumGalleryDark from '../assets/icons/dark/MuseumGallery_Dark.svg'
-import PeopleDark from '../assets/icons/dark/People_Dark.svg'
-import PlayDark from '../assets/icons/dark/Play_Dark.svg'
-import ShoppingDark from '../assets/icons/dark/Shopping_Dark.svg'
-import TransportDark from '../assets/icons/dark/Transport_Dark.svg'
+// // Import dark icons
+// import ArchitectureDark from '../assets/icons/dark/Architecture_Dark.svg'
+// import ArtsDesignDark from '../assets/icons/dark/ArtsDesign_Dark.svg'
+// import DrinkDark from '../assets/icons/dark/Drink_Dark.svg'
+// import FoodDark from '../assets/icons/dark/Food_Dark.svg'
+// import GreenSpaceDark from '../assets/icons/dark/GreenSpace_Dark.svg'
+// import MuseumGalleryDark from '../assets/icons/dark/MuseumGallery_Dark.svg'
+// import PeopleDark from '../assets/icons/dark/People_Dark.svg'
+// import PlayDark from '../assets/icons/dark/Play_Dark.svg'
+// import ShoppingDark from '../assets/icons/dark/Shopping_Dark.svg'
+// import TransportDark from '../assets/icons/dark/Transport_Dark.svg'
 
-// Import light icons
-import ArchitectureLight from '../assets/icons/light/Architecture_Light.svg'
-import ArtsDesignLight from '../assets/icons/light/ArtsDesign_Light.svg'
-import DrinkLight from '../assets/icons/light/Drink_Light.svg'
-import FoodLight from '../assets/icons/light/Food_Light.svg'
-import GreenSpaceLight from '../assets/icons/light/GreenSpace_Light.svg'
-import MuseumGalleryLight from '../assets/icons/light/MuseumGallery_Light.svg'
-import PeopleLight from '../assets/icons/light/People_Light.svg'
-import PlayLight from '../assets/icons/light/Play_Light.svg'
-import ShoppingLight from '../assets/icons/light/Shopping_Light.svg'
-import TransportLight from '../assets/icons/light/Transport_Light.svg'
+// // Import light icons
+// import ArchitectureLight from '../assets/icons/light/Architecture_Light.svg'
+// import ArtsDesignLight from '../assets/icons/light/ArtsDesign_Light.svg'
+// import DrinkLight from '../assets/icons/light/Drink_Light.svg'
+// import FoodLight from '../assets/icons/light/Food_Light.svg'
+// import GreenSpaceLight from '../assets/icons/light/GreenSpace_Light.svg'
+// import MuseumGalleryLight from '../assets/icons/light/MuseumGallery_Light.svg'
+// import PeopleLight from '../assets/icons/light/People_Light.svg'
+// import PlayLight from '../assets/icons/light/Play_Light.svg'
+// import ShoppingLight from '../assets/icons/light/Shopping_Light.svg'
+// import TransportLight from '../assets/icons/light/Transport_Light.svg'
+
+import Architecture_light from '../assets/icons/light/light_architecture.svg'
+import ArtsDesign_light from '../assets/icons/light/light_arts-design.svg'
+import Drink_light from '../assets/icons/light/light_drink.svg'
+import Food_light from '../assets/icons/light/light_food.svg'
+import GreenSpace_light from '../assets/icons/light/light_green-space.svg'
+import MuseumGallery_light from '../assets/icons/light/light_gallery.svg'
+import People_light from '../assets/icons/light/light_people.svg'
+import Play_light from '../assets/icons/light/light_play.svg'
+import Shopping_light from '../assets/icons/light/light_shop.svg'
+import Transport_light from '../assets/icons/light/light_transport.svg'
+
+import Architecture_dark from '../assets/icons/dark/dark_architecture.svg'
+import ArtsDesign_dark from '../assets/icons/dark/dark_arts-design.svg'
+import Drink_dark from '../assets/icons/dark/dark_drink.svg'
+import Food_dark from '../assets/icons/dark/dark_food.svg'
+import GreenSpace_dark from '../assets/icons/dark/dark_green-space.svg'
+import MuseumGallery_dark from '../assets/icons/dark/dark_gallery.svg'
+import People_dark from '../assets/icons/dark/dark_people.svg'
+import Play_dark from '../assets/icons/dark/dark_play.svg'
+import Shopping_dark from '../assets/icons/dark/dark_shop.svg'
+import Transport_dark from '../assets/icons/dark/dark_transport.svg'
 
 const props = defineProps({
     isOpen: {
@@ -127,16 +149,16 @@ const emit = defineEmits(['cancel', 'submit'])
 
 // Icon definitions with id, name, and dark/light sources
 const icons = [
-    { id: 'architecture', name: 'Architecture', dark: ArchitectureDark, light: ArchitectureLight },
-    { id: 'arts_design', name: 'Arts & Design', dark: ArtsDesignDark, light: ArtsDesignLight },
-    { id: 'drink', name: 'Drink', dark: DrinkDark, light: DrinkLight },
-    { id: 'food', name: 'Food', dark: FoodDark, light: FoodLight },
-    { id: 'green_space', name: 'Green Space', dark: GreenSpaceDark, light: GreenSpaceLight },
-    { id: 'museum_gallery', name: 'Museum & Gallery', dark: MuseumGalleryDark, light: MuseumGalleryLight },
-    { id: 'people', name: 'People', dark: PeopleDark, light: PeopleLight },
-    { id: 'play', name: 'Play', dark: PlayDark, light: PlayLight },
-    { id: 'shopping', name: 'Shopping', dark: ShoppingDark, light: ShoppingLight },
-    { id: 'transport', name: 'Transport', dark: TransportDark, light: TransportLight }
+    { id: 'architecture', name: 'Architecture', dark: Architecture_dark, light: Architecture_light },
+    { id: 'arts_design', name: 'Arts & Design', dark: ArtsDesign_dark, light: ArtsDesign_light },
+    { id: 'drink', name: 'Drink', dark: Drink_dark, light: Drink_light },
+    { id: 'food', name: 'Food', dark: Food_dark, light: Food_light },
+    { id: 'green_space', name: 'Green Space', dark: GreenSpace_dark, light: GreenSpace_light },
+    { id: 'museum_gallery', name: 'Museum & Gallery', dark: MuseumGallery_dark, light: MuseumGallery_light },
+    { id: 'people', name: 'People', dark: People_dark, light: People_light },
+    { id: 'play', name: 'Play', dark: Play_dark, light: Play_light },
+    { id: 'shopping', name: 'Shopping', dark: Shopping_dark, light: Shopping_light },
+    { id: 'transport', name: 'Transport', dark: Transport_dark, light: Transport_light }
 ]
 
 // Local state
@@ -154,7 +176,7 @@ let scrollTimeout = null
 const PROXIMITY_THRESHOLD = 10
 
 // Icon item width (icon size + gap)
-const ICON_SIZE = 48
+const ICON_SIZE = 64
 const ICON_GAP = 8
 const ITEM_WIDTH = ICON_SIZE + ICON_GAP
 
@@ -474,7 +496,7 @@ const handleFinish = () => {
     width: 100%;
     overflow: hidden;
     border-radius: 12px;
-    height: 64px;
+    height: fit-content;
 }
 
 .dark-mode .icon-scroll-container {
@@ -482,7 +504,7 @@ const handleFinish = () => {
 }
 
 .light-mode .icon-scroll-container {
-    background-color: #ffffff;
+    background-color: #f6f8fa;
 }
 
 .icon-scroll-wheel {
@@ -558,7 +580,7 @@ const handleFinish = () => {
     margin-top: 10px;
     font-size: 13px;
     font-weight: 600;
-    color: #667eea;
+    color: #e7e7e7;
 }
 
 /* Icon Option */
@@ -566,11 +588,11 @@ const handleFinish = () => {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 48px;
-    height: 48px;
+    width: 64px;
+    height: 64px;
     padding: 8px;
     border: 2px solid transparent;
-    border-radius: 12px;
+    border-radius: 15px;
     transition: all 0.25s ease;
     flex-shrink: 0;
     scroll-snap-align: center;
@@ -583,7 +605,7 @@ const handleFinish = () => {
 .icon-option.selected {
     opacity: 1;
     transform: scale(1);
-    border-color: #667eea;
+    border-color: #f6f8fa;
     background: linear-gradient(135deg, rgba(102, 126, 234, 0.15) 0%, rgba(118, 75, 162, 0.15) 100%);
 }
 
@@ -596,8 +618,8 @@ const handleFinish = () => {
 }
 
 .icon-image {
-    width: 32px;
-    height: 32px;
+    width: 48px;
+    height: 48px;
     object-fit: contain;
 }
 
@@ -644,8 +666,9 @@ const handleFinish = () => {
 
 /* Submit Button */
 .btn-submit {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
+    background: #e7e7e7;
+    color: #0b0b0b;
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
 }
 
 .btn-submit:hover {
@@ -654,7 +677,7 @@ const handleFinish = () => {
 
 /* Confirm Button (warning state) */
 .btn-submit.btn-confirm {
-    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    background: linear-gradient(135deg, #8C94A6 0%, #E7E7E7 100%);
 }
 
 .btn-submit.btn-confirm:hover {

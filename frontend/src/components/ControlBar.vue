@@ -48,10 +48,10 @@
             <input type="text" class="upload-input" placeholder="Start typing..." v-model="inputText"
               @keydown.enter="handleSubmit" autofocus />
             <button class="upload-btn" @click="handleSubmit" :title="'Submit'">
-              <img :src="uploadIconExpanded" alt="Upload" class="icon" />
+              <img :src="uploadIconRegular" alt="Upload" class="icon" />
             </button>
             <button class="upload-btn" @click="handleClose" :title="'Close'" @keydown.esc="handleClose">
-              <img :src="closeIconExpanded" alt="Close" class="icon" />
+              <img :src="closeIconRegular" alt="Close" class="icon" />
             </button>
           </div>
 
