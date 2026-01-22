@@ -341,6 +341,8 @@ const loadUserPoints = async () => {
       markerContainer.setAttribute('data-icon', point.icon_name || 'Architecture')
       // Set z-index based on stacking order (higher index = higher z-index)
       markerContainer.style.zIndex = String(index + 1)
+      // Set z-index based on stacking order (higher index = higher z-index)
+      markerContainer.style.zIndex = String(index + 10)
 
       // Get the appropriate SVG for this marker's icon_name
       const markerSVGPath = getMarkerSVG(point.icon_name || 'Architecture', props.isDarkMode)
@@ -379,6 +381,28 @@ const loadUserPoints = async () => {
       markers.userPoints.push(marker)
 
     //   console.log(`✅ Created marker ${index + 1}/${publicPointsData.length}: ${point.description}`)
+    // Add dynamic stacking based on viewport position
+    const updateMarkerStacking = () => {
+      // Get all marker containers
+      const markerElements = publicPointsData.map(point => document.getElementById(`marker-${point.id}`))
+      // Project each marker's coordinates to screen position
+      const markerScreenYs = publicPointsData.map(point => {
+        const screenPos = map.project([point.longitude, point.latitude])
+        return { id: point.id, y: screenPos.y }
+      })
+      // Sort by Y (bottom of viewport = higher y)
+      markerScreenYs.sort((a, b) => a.y - b.y)
+      // Set z-index based on order (bottom-most = highest z-index)
+      markerScreenYs.forEach((marker, idx) => {
+        const el = document.getElementById(`marker-${marker.id}`)
+        if (el) el.style.zIndex = String(100 + idx)
+      })
+    }
+    // Listen for map move/rotate events
+    map.on('move', updateMarkerStacking)
+    map.on('rotate', updateMarkerStacking)
+    // Initial stacking
+    updateMarkerStacking()
     })
 
     console.log(`✅ All ${publicPointsData.length} custom marker pins created and added to map`)
