@@ -365,7 +365,7 @@ const loadUserPoints = async () => {
       })
 
       markerContainer.addEventListener('mouseleave', () => {
-        markerContainer.style.zIndex = String(index + 1)
+        markerContainer.style.zIndex = '1'
       })
 
       // Create Mapbox marker
@@ -382,29 +382,6 @@ const loadUserPoints = async () => {
     })
 
     console.log(`✅ All ${publicPointsData.length} custom marker pins created and added to map`)
-
-    // Add dynamic stacking based on viewport position
-    const updateMarkerStacking = () => {
-      // Get all marker containers
-      const markerElements = publicPointsData.map(point => document.getElementById(`marker-${point.id}`))
-      // Project each marker's coordinates to screen position
-      const markerScreenYs = publicPointsData.map(point => {
-        const screenPos = map.project([point.longitude, point.latitude])
-        return { id: point.id, y: screenPos.y }
-      })
-      // Sort by Y (bottom of viewport = higher y)
-      markerScreenYs.sort((a, b) => a.y - b.y)
-      // Set z-index based on order (bottom-most = highest z-index)
-      markerScreenYs.forEach((marker, idx) => {
-        const el = document.getElementById(`marker-${marker.id}`)
-        if (el) el.style.zIndex = String(100 + idx)
-      })
-    }
-    // Listen for map move/rotate events
-    map.on('move', updateMarkerStacking)
-    map.on('rotate', updateMarkerStacking)
-    // Initial stacking
-    updateMarkerStacking()
 
   } catch (error) {
     console.error('❌ Failed to load public points:', error)
