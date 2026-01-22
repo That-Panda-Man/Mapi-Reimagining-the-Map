@@ -330,6 +330,8 @@ const loadUserPoints = async () => {
 
     console.log(`📍 Creating ${publicPointsData.length} custom marker pins`)
 
+    // Sort markers by latitude (reverse stacking for bottom to top)
+    publicPointsData.sort((b, a) => a.latitude - b.latitude)
     // Create custom markers for each public point
     publicPointsData.forEach((point, index) => {
       // Create a container div for the marker
@@ -337,6 +339,8 @@ const loadUserPoints = async () => {
       markerContainer.id = `marker-${point.id}`
       markerContainer.className = 'custom-marker-container'
       markerContainer.setAttribute('data-icon', point.icon_name || 'Architecture')
+      // Set z-index based on stacking order (higher index = higher z-index)
+      markerContainer.style.zIndex = String(index + 1)
 
       // Get the appropriate SVG for this marker's icon_name
       const markerSVGPath = getMarkerSVG(point.icon_name || 'Architecture', props.isDarkMode)
@@ -357,11 +361,11 @@ const loadUserPoints = async () => {
       })
 
       markerContainer.addEventListener('mouseenter', () => {
-        markerContainer.style.zIndex = '1000'
+        markerContainer.style.zIndex = String(index + 1000)
       })
 
       markerContainer.addEventListener('mouseleave', () => {
-        markerContainer.style.zIndex = '1'
+        markerContainer.style.zIndex = String(index + 10)
       })
 
       // Create Mapbox marker
