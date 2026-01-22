@@ -43,7 +43,7 @@
                     </p>
                     <h2>Code</h2>
                     <p>
-                        To view the code for this website, please head to <a href="https://github.com/your-repo-link">Github</a>.
+                        To view the code for this website, please head to <a href="https://github.com/That-Panda-Man/Mapi-Reimagining-the-Map">Github</a>.
                     </p>
                     
                     <button class="back-btn" @click="handleMapToggle">← Back to Map</button>

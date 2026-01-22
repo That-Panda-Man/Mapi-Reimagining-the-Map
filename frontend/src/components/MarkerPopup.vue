@@ -311,19 +311,34 @@ export default {
 }
 
 .dark-mode .info-value {
-    color: #e0e0e0;
+    color: #f6f8fa;
 }
 
 .light-mode .info-value {
-    color: #333;
+    color: #0b0b0b;
 }
 
 .category-badge {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white !important;
     padding: 4px 12px;
     border-radius: 20px;
     font-size: 0.8rem;
+}
+
+.marker-popup-modal.dark-mode .category-badge {
+    color: #f6f8fa;
+    background-color: #484a55;
+    box-shadow: -1px -0.5px 3.5px 0px rgba(0, 0, 0, 0.25),
+        0.5px 1px 2px 0px rgba(0, 0, 0, 0.38),
+        inset 0.5px 1px 2.25px 0px rgba(255, 255, 255, 0.61);
+}
+
+.marker-popup-modal.light-mode .category-badge {
+    color: #0b0b0b;
+    background-color: #f6f8fa;
+    box-shadow: -1px -0.5px 3.5px 0px rgba(255, 255, 255, 0.7),
+        0.5px 1px 2px 0px rgba(0, 0, 0, 0.15),
+        inset 0.5px 1px 2.25px 0px rgba(255, 255, 255, 0.9);
 }
 
 .coordinates {

@@ -796,6 +796,7 @@ defineExpose({
   left: 0;
   width: 100%;
   /* Use CSS variable --vh set from JS to avoid mobile Safari 100vh issues */
-  height: calc(var(--vh, 1vh) * 100);
+  /* height: calc(var(--vh, 1vh) * 100); */
+  height: 100dvh;
 }
 </style>
