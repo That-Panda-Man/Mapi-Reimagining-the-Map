@@ -29,7 +29,12 @@
           @info-click="handleInfoClick"
           @locate-me-click="handleLocateMeClick"
           @theme-toggle="toggleTheme"
+          @legend-toggle="toggleLegend"
         />
+      </div>
+
+      <div class="legend" :class="{ dark: isDarkMode, light: !isDarkMode }" v-show="isLegendOpen">
+        <Legend :isDarkMode="isDarkMode" :isOpen="isLegendOpen" @toggle-legend="toggleLegend"/>
       </div>
 
       <div class="left-container">
@@ -47,9 +52,7 @@
             :userLocation="userLocation"
           />
         </div>
-        <div class="legend-container">
-          <Legend :isDarkMode="isDarkMode" :isOpen="true" />
-        </div>
+
       </div>
 
       <!-- Submission Modal -->
@@ -112,6 +115,9 @@ export default {
 
     // Map display options
     const isDarkMode = ref(true)
+
+    // Legend open/close state
+    const isLegendOpen = ref(false)
 
     // Data state
     const publicPoints = ref([])
@@ -322,6 +328,10 @@ export default {
       }
     }
 
+    const toggleLegend = () => {
+      isLegendOpen.value = !isLegendOpen.value
+    }
+
     // ===== DATA FETCHING =====
 
     /**
@@ -404,6 +414,7 @@ export default {
       nearestGap,
       nearbyGapsCount,
       isDarkMode,
+      isLegendOpen,
       showSubmissionModal,
       submissionText,
       showMarkerPopup,
@@ -423,6 +434,7 @@ export default {
       handleInfoClick,
       handleLocateMeClick,
       toggleTheme,
+      toggleLegend,
 
       // Refs
       mapContainerRef,

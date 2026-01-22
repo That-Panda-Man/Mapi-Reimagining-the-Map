@@ -1,9 +1,16 @@
 <template>
-    <div class="legend-container" :class="{ dark: isDarkMode, light: !isDarkMode }">
-        <h3 class="legend-title">Legend</h3>
-        <div v-for="(item, index) in legendItems" :key="index" class="legend-item">
-            <div class="legend-icon"><img class="legend-icon-image" :src="props.isDarkMode ? icons[index].dark : icons[index].light" alt="" /></div>
-            <span class="legend-label">{{ item.label }}</span>
+    <div v-if="isOpen" class="legend-container" :class="{ dark: isDarkMode, light: !isDarkMode }">
+        <div class="legend-header">
+            <h3 class="legend-title" :class="{ dark: props.isDarkMode, light: !props.isDarkMode }">Legend</h3>
+            <button class="legend-close-btn" @click="toggleLegend" :title="'Close legend'">
+                <img class="legend-icon close" :src="props.isDarkMode ? Close_dark : Close_light" alt="Close" />
+            </button>
+        </div>
+        <div class="legend-content">
+            <div v-for="(item, index) in legendItems" :key="index" class="legend-item">
+                <div class="legend-icon"><img class="legend-icon-image" :src="props.isDarkMode ? icons[index].dark : icons[index].light" alt="" /></div>
+                <span class="legend-label" :class="{ dark: props.isDarkMode, light: !props.isDarkMode }">{{ item.label }}</span>
+            </div>
         </div>
     </div>
 </template>
@@ -33,10 +40,13 @@ import Play_dark from '../assets/icons/dark/dark_play.svg'
 import Shopping_dark from '../assets/icons/dark/dark_shop.svg'
 import Transport_dark from '../assets/icons/dark/dark_transport.svg'
 
+import Close_dark from '../assets/utility_icons/close/dark_round_regular.svg'
+import Close_light from '../assets/utility_icons/close/light_round_regular.svg'
+
 const props = defineProps({
     isOpen: {
         type: Boolean,
-        default: true
+        default: false
     },
     variant: {
         type: String,
@@ -48,6 +58,8 @@ const props = defineProps({
         default: false
     }
 })
+
+const emit = defineEmits(['toggle-legend'])
 
 const icons = [
     { id: 'architecture', name: 'Architecture', dark: Architecture_dark, light: Architecture_light },
@@ -69,4 +81,7 @@ const legendItems = computed(() => {
     }))
 })
 
+const toggleLegend = () => {
+    emit('toggle-legend')
+}
 </script>

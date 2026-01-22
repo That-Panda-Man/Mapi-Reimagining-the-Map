@@ -31,6 +31,12 @@
             <span class="tooltip-text">Locate Me</span>
           </div>
           <div class="icon tooltip">
+            <button class="icon-btn legend-btn" @click="$emit('legend-toggle')" :title="'Toggle legend'">
+              <img :src="legendIcon" alt="Legend" class="icon" />
+            </button>
+            <span class="tooltip-text">Toggle Legend</span>
+          </div>
+          <div class="icon tooltip">
             <button class="icon-btn color-mode-btn" @click="$emit('theme-toggle')"
               :title="`Switch to ${isDarkMode ? 'light' : 'dark'} mode`">
               <img :src="colorModeIcon" alt="Theme" class="icon" />
@@ -66,6 +72,9 @@
             <button class="icon-btn locate-me-btn" @click="$emit('locate-me-click')" :title="'Locate me'">
               <img :src="locateMeIcon" alt="Locate Me" class="icon" />
             </button>
+            <button class="icon-btn legend-btn" @click="$emit('legend-toggle')" :title="'Toggle legend'">
+              <img :src="legendIcon" alt="Legend" class="icon" />
+            </button>
             <button class="icon-btn color-mode-btn" @click="$emit('theme-toggle')"
               :title="`Switch to ${isDarkMode ? 'light' : 'dark'} mode`">
               <img :src="colorModeIcon" alt="Theme" class="icon" />
@@ -78,7 +87,7 @@
     <!-- Compact Variant: Icon buttons only -->
     <template v-else>
       <div class="control-bar-compact">
-        <button class="icon-btn search-btn" @click="toggleSearchMode" :title="'Search locations'">
+        <button class="icon-btn search-btn" @click="toggleInputMode" :title="'Search locations'">
           <img :src="searchIcon" alt="Search" class="icon" />
         </button>
         <button class="icon-btn map-btn" @click="$emit('map-toggle')" :title="'Toggle map layers'">
@@ -89,6 +98,9 @@
         </button>
         <button class="icon-btn locate-me-btn" @click="$emit('locate-me-click')" :title="'Locate me'">
           <img :src="locateMeIcon" alt="Locate Me" class="icon" />
+        </button>
+        <button class="icon-btn legend-btn" @click="$emit('legend-toggle')" :title="'Toggle legend'">
+          <img :src="legendIcon" alt="Legend" class="icon" />
         </button>
         <button class="icon-btn color-mode-btn" @click="$emit('theme-toggle')"
           :title="`Switch to ${isDarkMode ? 'light' : 'dark'} mode`">
@@ -105,8 +117,6 @@ import { useRouter } from 'vue-router'
 
 // Import utility icons
 // Upload
-import uploadDarkRoundLarge from '../assets/utility_icons/upload/dark_round_large.svg'
-import uploadLightRoundLarge from '../assets/utility_icons/upload/light_round_large.svg'
 import uploadDarkRoundRegular from '../assets/utility_icons/upload/dark_round_regular.svg'
 import uploadLightRoundRegular from '../assets/utility_icons/upload/light_round_regular.svg'
 
@@ -127,10 +137,12 @@ import colorModeDarkRound from '../assets/utility_icons/colourMode/dark_round_re
 import colorModeLightRound from '../assets/utility_icons/colourMode/light_round_regular.svg'
 
 // Close Icon
-import closeDarkRoundLarge from '../assets/utility_icons/close/dark_round_large.svg'
-import closeLightRoundLarge from '../assets/utility_icons/close/light_round_large.svg'
 import closeDarkRoundRegular from '../assets/utility_icons/close/dark_round_regular.svg'
 import closeLightRoundRegular from '../assets/utility_icons/close/light_round_regular.svg'
+
+// Legend Icon
+import legendDarkRound from '../assets/utility_icons/legend/dark_round_regular.svg'
+import legendLightRound from '../assets/utility_icons/legend/light_round_regular.svg'
 
 // Props
 const props = defineProps({
@@ -152,7 +164,8 @@ const emit = defineEmits([
   'info-click',
   'theme-toggle',
   'close-click',
-  'locate-me-click'
+  'locate-me-click',
+  'legend-toggle'
 ])
 
 // Refs
@@ -189,17 +202,13 @@ onUnmounted(() => {
 
 // Computed icons based on theme
 const uploadIconRegular = computed(() => props.isDarkMode ? uploadDarkRoundRegular : uploadLightRoundRegular)
-const uploadIconLarge = computed(() => props.isDarkMode ? uploadDarkRoundLarge : uploadLightRoundLarge)
-// Use regular icon on mobile, large on desktop
-const uploadIconExpanded = computed(() => isMobile.value ? uploadIconRegular.value : uploadIconLarge.value)
 const searchIcon = computed(() => props.isDarkMode ? searchDarkRound : searchLightRound)
 const mapIcon = computed(() => props.isDarkMode ? mapDarkRound : mapLightRound)
 const infoIcon = computed(() => props.isDarkMode ? infoDarkRound : infoLightRound)
 const locateMeIcon = computed(() => props.isDarkMode ? moveDarkRound : moveLightRound)
 const colorModeIcon = computed(() => props.isDarkMode ? colorModeDarkRound : colorModeLightRound)
 const closeIconRegular = computed(() => props.isDarkMode ? closeDarkRoundRegular : closeLightRoundRegular)
-const closeIconLarge = computed(() => props.isDarkMode ? closeDarkRoundLarge : closeLightRoundLarge)
-const closeIconExpanded = computed(() => isMobile.value ? closeIconRegular.value : closeIconLarge.value)
+const legendIcon = computed(() => props.isDarkMode ? legendDarkRound : legendLightRound)
 
 // Methods
 const handleSubmit = () => {
@@ -218,7 +227,7 @@ const handleUploadClick = () => {
   isExpanded.value = !isExpanded.value
 }
 
-const toggleSearchMode = () => {
+const toggleInputMode = () => {
   searchModeActive.value = !searchModeActive.value
 }
 </script>
