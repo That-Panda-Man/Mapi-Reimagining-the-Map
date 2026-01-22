@@ -47,6 +47,9 @@
             :userLocation="userLocation"
           />
         </div>
+        <div class="legend-container">
+          <Legend :isDarkMode="isDarkMode" :isOpen="true" />
+        </div>
       </div>
 
       <!-- Submission Modal -->
@@ -84,6 +87,7 @@ import NearestGap from '../components/NearestGap.vue'
 import Branding from '../components/Branding.vue'
 import '../styles/app-global.css'
 import '../styles/markers.css'
+import Legend from '../components/Legend.vue'
 
 export default {
   name: 'Home',
@@ -93,7 +97,8 @@ export default {
     SubmissionModal,
     MarkerPopup,
     NearestGap,
-    Branding
+    Branding,
+    Legend
   },
   setup() {
     // ===== STATE =====

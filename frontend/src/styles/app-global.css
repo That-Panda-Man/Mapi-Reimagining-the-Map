@@ -611,6 +611,33 @@
   background: transparent;
 }
 
+/* LEGEND STYLES */
+.legend-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 8px;
+  border-radius: 15px;
+  max-width: 120px;
+}
+
+.legend-icon {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  display: block;
+  border: none;
+  outline: none;
+  background: transparent;
+}
+
+.legend-icon-image {
+  width: 100%;
+  height: 100%;
+}
+
 /* --- Compact Variant --- */
 .control-bar-compact {
   display: flex;

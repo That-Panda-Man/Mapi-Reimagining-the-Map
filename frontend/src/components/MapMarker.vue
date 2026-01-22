@@ -155,20 +155,11 @@ export default {
 }
 
 .marker-pin:hover {
-  transform: scale(1.1);
-}
-
-.marker-pin-svg {
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
-  transition: filter 0.2s ease;
-}
-
-.marker-pin:hover .marker-pin-svg {
-  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4));
+  transform: scaleY(1.1) translateY(20px);
 }
 
 .marker-label {
-  margin-top: 4px;
+  margin-top: 8px;
   font-size: 12px;
   font-weight: 500;
   color: v-bind('markerColors.labelText');

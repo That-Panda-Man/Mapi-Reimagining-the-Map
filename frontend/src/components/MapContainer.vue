@@ -365,7 +365,7 @@ const loadUserPoints = async () => {
       })
 
       markerContainer.addEventListener('mouseleave', () => {
-        markerContainer.style.zIndex = String(index - 1000)
+        markerContainer.style.zIndex = String(index + 1)
       })
 
       // Create Mapbox marker
