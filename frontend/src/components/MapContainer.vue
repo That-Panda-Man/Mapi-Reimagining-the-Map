@@ -393,7 +393,7 @@ const loadUserPoints = async () => {
         return { id: point.id, y: screenPos.y }
       })
       // Sort by Y (bottom of viewport = higher y)
-      markerScreenYs.sort((a, b) => b.y - a.y)
+      markerScreenYs.sort((a, b) => a.y - b.y)
       // Set z-index based on order (bottom-most = highest z-index)
       markerScreenYs.forEach((marker, idx) => {
         const el = document.getElementById(`marker-${marker.id}`)
